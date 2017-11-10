@@ -15,6 +15,21 @@ function yaml2json(buffer, options) {
   var ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
   var monster = {};
   monster.name = ymlMonster.name;
+  monster.type = ymlMonster.type;
+  monster.size = ymlMonster.size;
+  monster.type = ymlMonster.type + ( ymlMonster.subtype ? "(" + ymlMonster.subtype + ")" );
+  monster.alignment = ymlMonster.alignment;
+  monster.AC = ymlMonster.ac + ( ymlMonster.armor ? "(" + ymlMonster.armor + ")" );
+  monster.HP = ymlMonster.hp;
+  monster.speed = ymlMonster.speed;
+  monster.strength = ymlMonster.abilities.str;
+  monster.dexterity = ymlMonster.abilities.dex;
+  monster.constitution = ymlMonster.abilities.con;
+  monster.intelligence = ymlMonster.abilities.int;
+  monster.wisdom = ymlMonster.abilities.wis;
+  monster.charisma = ymlMonster.abilities.cha;
+  monster.challenge = ymlMonster.cr;
+
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
 }
 
