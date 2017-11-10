@@ -18,5 +18,12 @@
   "homepage": "https://github.com/malkuthe/gulp-5e-shaped-monster#readme",
   "devDependencies": {
     "event-stream": "^3.3.4"
+  },
+  "dependencies": {
+    "bufferstreams": "^1.1.1",
+    "gulp-util": "^3.0.8",
+    "js-yaml": "^3.10.0",
+    "through2": "^2.0.3",
+    "xtend": "^4.0.1"
   }
 }
