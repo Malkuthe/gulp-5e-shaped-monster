@@ -29,13 +29,7 @@ function yaml2json(buffer, options) {
   monster.wisdom = ymlMonster.abilities.wis;
   monster.charisma = ymlMonster.abilities.cha;
   monster.challenge = ymlMonster.cr;
-  monster.traits = [];
-  for (const trait in ymlMonster.traits) {
-    monster.traits.push({
-      name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
-      description: trait.description
-    })
-  }
+  monster.traits = ymlMonster.traits;
 
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
 }
