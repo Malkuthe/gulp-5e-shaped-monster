@@ -17,9 +17,9 @@ function yaml2json(buffer, options) {
   monster.name = ymlMonster.name;
   monster.type = ymlMonster.type;
   monster.size = ymlMonster.size;
-  monster.type = ymlMonster.type + ( ymlMonster.subtype ? "(" + ymlMonster.subtype + ")" : "" );
+  monster.type = ymlMonster.type + ( ymlMonster.subtype ? " (" + ymlMonster.subtype + ")" : "" );
   monster.alignment = ymlMonster.alignment;
-  monster.AC = ymlMonster.ac + ( ymlMonster.armor ? "(" + ymlMonster.armor + ")" : "" );
+  monster.AC = ymlMonster.ac + ( ymlMonster.armor ? " (" + ymlMonster.armor + ")" : "" );
   monster.HP = ymlMonster.hp;
   monster.speed = ymlMonster.speed;
   monster.strength = ymlMonster.abilities.str;
@@ -29,6 +29,13 @@ function yaml2json(buffer, options) {
   monster.wisdom = ymlMonster.abilities.wis;
   monster.charisma = ymlMonster.abilities.cha;
   monster.challenge = ymlMonster.cr;
+  monster.traits = [];
+  for (trait in ymlMonster.traits) {
+    monster.traits.push({
+      name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
+      description: trait.description
+    })
+  }
 
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
 }
