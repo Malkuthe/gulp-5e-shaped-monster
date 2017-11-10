@@ -5,6 +5,7 @@ var gutil         = require('gulp-util');
 var yaml          = require('js-yaml');
 var xtend         = require('xtend');
 var BufferStreams = require('bufferstreams');
+var removeMD      = require('remove-markdown');
 var PluginError   = gutil.PluginError;
 var PLUGIN_NAME   = 'gulp-5e-monster-shaped';
 
@@ -36,7 +37,7 @@ function yaml2json(buffer, options) {
       const trait = ymlMonster.traits[prop];
       monster.traits.push({
         name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
-        text: trait.description
+        text: removeMD(trait.description)
       })
     }
   }
@@ -46,7 +47,7 @@ function yaml2json(buffer, options) {
     if (ymlMonster.multiattack) {
       monster.actions.push({
         name: "Multiattack",
-        text: ymlMonster.multiattack.description
+        text: removeMD(ymlMonster.multiattack.description)
       })
     }
 
@@ -54,7 +55,7 @@ function yaml2json(buffer, options) {
       const action = ymlMonster.actions[prop];
       monster.actions.push({
         name: action.name + ( action.uses ? " (" + action.uses + ")" : ""),
-        text: action.description
+        text: removeMD(action.description)
       })
     }
 
@@ -81,7 +82,7 @@ function yaml2json(buffer, options) {
       const legendaryAction = ymlMonster.legendaryActions[prop];
       monster.legendaryActions.push({
         name: legendaryAction.name + ( legendaryAction.uses ? " (" + legendaryAction.uses + ")" : ""),
-        text: legendaryAction.description
+        text: removeMD(legendaryAction.description)
       })
     }
   }
@@ -92,7 +93,7 @@ function yaml2json(buffer, options) {
       const reaction = ymlMonster.reactions[prop];
       monster.reactions.push({
         name: reaction.name + ( reaction.uses ? " (" + reaction.uses + ")" : ""),
-        text: reaction.description
+        text: removeMD(reaction.description)
       })
     }
   }
