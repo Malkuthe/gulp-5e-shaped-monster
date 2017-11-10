@@ -28,7 +28,7 @@ function yaml2json(buffer, options) {
   monster.intelligence = ymlMonster.abilities.int;
   monster.wisdom = ymlMonster.abilities.wis;
   monster.charisma = ymlMonster.abilities.cha;
-  monster.challenge = ymlMonster.cr;
+  monster.challenge = ymlMonster.cr.toString();
 
   if (ymlMonster.traits) {
     monster.traits = [];
