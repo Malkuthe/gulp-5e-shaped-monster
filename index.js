@@ -29,42 +29,84 @@ function yaml2json(buffer, options) {
   monster.wisdom = ymlMonster.abilities.wis;
   monster.charisma = ymlMonster.abilities.cha;
   monster.challenge = ymlMonster.cr;
-  monster.traits = [];
-  for (const prop in ymlMonster.traits) {
-    const trait = ymlMonster.traits[prop];
-    monster.traits.push({
-      name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
-      text: trait.description
-    })
+
+  if (ymlMonster.traits) {
+    monster.traits = [];
+    for (const prop in ymlMonster.traits) {
+      const trait = ymlMonster.traits[prop];
+      monster.traits.push({
+        name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
+        text: trait.description
+      })
+    }
   }
-  monster.actions = [];
-  if (ymlMonster.multiattack) {
-    monster.actions.push({
-      name: "Multiattack",
-      text: ymlMonster.multiattack.description
-    })
+
+  if (ymlMonster.actions || ymlMonster.attacks) {
+    monster.actions = [];
+    if (ymlMonster.multiattack) {
+      monster.actions.push({
+        name: "Multiattack",
+        text: ymlMonster.multiattack.description
+      })
+    }
+
+    for (const prop in ymlMonster.actions) {
+      const action = ymlMonster.actions[prop];
+      monster.actions.push({
+        name: action.name + ( action.uses ? " (" + action.uses + ")" : ""),
+        text: action.description
+      })
+    }
+
+    for (const prop in ymlMonster.attacks) {
+      const attack = ymlMonster.attacks[prop];
+      var text = attack.type + ": ";
+      text += ( attack.tohit >= 0 ? "+" : "-" ) + attack.tohit + " to hit, ";
+      text += attack.reach ? "reach " + attack.reach : "";
+      text += attack.reach && attack.range ? " or " : "";
+      text += attack.range ? "range " + attack.range : "";
+      text += ", ";
+      text += attack.target + ". ";
+      text += "Hit: " + attack.damage + " " + attack.onhit; 
+      monster.actions.push({
+        name: attack.name + ( attack.uses ? " (" + attack.uses + ")" : ""),
+        text: text
+      })
+    }
   }
-  for (const prop in ymlMonster.actions) {
-    const action = ymlMonster.actions[prop];
-    monster.actions.push({
-      name: action.name + ( action.uses ? " (" + action.uses + ")" : ""),
-      text: action.description
-    })
+
+  if (ymlMonster.legendaryActions) {
+    monster.legendaryActions = [];
+    for (const prop in ymlMonster.legendaryActions) {
+      const legendaryAction = ymlMonster.legendaryActions[prop];
+      monster.legendaryActions.push({
+        name: legendaryAction.name + ( legendaryAction.uses ? " (" + legendaryAction.uses + ")" : ""),
+        text: legendaryAction.description
+      })
+    }
   }
-  for (const prop in ymlMonster.attacks) {
-    const attack = ymlMonster.attacks[prop];
-    var text = attack.type + ": ";
-    text += attack.tohit + " to hit, ";
-    text += attack.reach ? "reach " + attack.reach : "";
-    text += attack.reach && attack.range ? " or " : "";
-    text += attack.range ? "range " + attack.range : "";
-    text += ", ";
-    text += attack.target + ". ";
-    text += "Hit: " + attack.damage + " " + attack.onhit; 
-    monster.actions.push({
-      name: attack.name + ( attack.uses ? " (" + attack.uses + ")" : ""),
-      text: text
-    })
+
+  if (ymlMonster.reactions) {
+    monster.reactions = [];
+    for (const prop in ymlMonster.reactions) {
+      const reaction = ymlMonster.reactions[prop];
+      monster.reactions.push({
+        name: reaction.name + ( reaction.uses ? " (" + reaction.uses + ")" : ""),
+        text: reaction.description
+      })
+    }
+  }
+
+  if (ymlMonster.saves) {
+    var savesArray = [];
+    for (var prop in ymlMonster.saves) {
+      save = ymlMonster.saves[prop]
+      var temp = "";
+      temp += prop.charAt(0).toUpperCase() + prop.slice(1);
+      temp += s >= 0 ? " +" : " -";
+      savesArray.push(temp);
+    }
+    monster.savingThrows = savesArray.join(",");
   }
 
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
