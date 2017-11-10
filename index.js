@@ -57,7 +57,7 @@ function yaml2json(buffer, options) {
     text += attack.tohit + " to hit, ";
     text += attack.reach ? "reach " + attack.reach : "";
     text += attack.reach && attack.range ? " or " : "";
-    text += attack.range ? "range " + attach.range : "";
+    text += attack.range ? "range " + attack.range : "";
     text += ", ";
     text += attack.target + ". ";
     text += "Hit: " + attack.damage + " " + attack.onhit; 
