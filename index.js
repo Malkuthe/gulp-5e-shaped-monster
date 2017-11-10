@@ -30,7 +30,7 @@ function yaml2json(buffer, options) {
   monster.charisma = ymlMonster.abilities.cha;
   monster.challenge = ymlMonster.cr;
   monster.traits = [];
-  for (trait in ymlMonster.traits) {
+  for (const trait in ymlMonster.traits) {
     monster.traits.push({
       name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
       description: trait.description
