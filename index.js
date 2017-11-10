@@ -16,9 +16,8 @@ function yaml2json(buffer, options) {
   var ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
   var monster = {};
   monster.name = ymlMonster.name;
-  monster.type = ymlMonster.type;
-  monster.size = ymlMonster.size;
-  monster.type = ymlMonster.type + ( ymlMonster.subtype ? " (" + ymlMonster.subtype + ")" : "" );
+  monster.size = firstCap(ymlMonster.size);
+  monster.type = firstCap(ymlMonster.type) + ( ymlMonster.subtype ? " (" + ymlMonster.subtype + ")" : "" );
   monster.alignment = ymlMonster.alignment;
   monster.AC = ymlMonster.ac + ( ymlMonster.armor ? " (" + ymlMonster.armor + ")" : "" );
   monster.HP = ymlMonster.hp;
@@ -103,7 +102,7 @@ function yaml2json(buffer, options) {
     for (var prop in ymlMonster.saves) {
       var save = ymlMonster.saves[prop]
       var temp = "";
-      temp += prop.charAt(0).toUpperCase() + prop.slice(1);
+      temp += firstCap(prop);
       temp += save >= 0 ? " +" + save : " -" + save;
       savesArray.push(temp);
     }
@@ -144,6 +143,10 @@ function yaml2json(buffer, options) {
   }
 
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
+}
+
+function firstCap(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function parseSchema(schema) {
