@@ -103,7 +103,7 @@ function yaml2json(buffer, options) {
       var save = ymlMonster.saves[prop]
       var temp = "";
       temp += prop.charAt(0).toUpperCase() + prop.slice(1);
-      temp += s >= 0 ? " +" : " -";
+      temp += save >= 0 ? " +" : " -";
       savesArray.push(temp);
     }
     monster.savingThrows = savesArray.join(",");
