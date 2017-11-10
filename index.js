@@ -33,8 +33,8 @@ function yaml2json(buffer, options) {
   for (const prop in ymlMonster.traits) {
     const trait = ymlMonster.traits[prop];
     monster.traits.push({
-      name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" );
-      description: trait.description;
+      name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
+      description: trait.description
     })
   }
 
