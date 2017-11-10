@@ -34,7 +34,36 @@ function yaml2json(buffer, options) {
     const trait = ymlMonster.traits[prop];
     monster.traits.push({
       name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
-      description: trait.description
+      text: trait.description
+    })
+  }
+  monster.actions = [];
+  if (ymlMonster.multiattack) {
+    monster.actions.push({
+      name: "Multiattack",
+      text: ymlMonster.multiattack.description
+    })
+  }
+  for (const prop in ymlMonster.actions) {
+    const action = ymlMonster.actions[prop];
+    monster.actions.push({
+      name: action.name + ( action.uses ? " (" + action.uses + ")" : ""),
+      text: action.description
+    })
+  }
+  for (const prop in ymlMonster.attacks) {
+    const attack = ymlMonster.attacks[prop];
+    var text = attack.type + ": ";
+    text += attack.tohit + " to hit, ";
+    text += attack.reach ? "reach " + attack.reach : "";
+    text += attack.reach && attack.range ? " or " : "";
+    text += attack.range ? "range " + attach.range : "";
+    text += ", ";
+    text += attack.target + ". ";
+    text += "Hit: " + attack.damage + " " + attack.onhit; 
+    monster.actions.push({
+      name: attack.name + ( attack.uses ? " (" + attack.uses + ")" : ""),
+      text: text
     })
   }
 
