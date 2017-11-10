@@ -14,7 +14,7 @@ function yaml2json(buffer, options) {
   var ymlOptions = {schema: options.schema, filename: options.filename};
   var ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
   var monster = {};
-  monster.name = ymlDocument.name;
+  monster.name = ymlMonster.name;
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
 }
 
