@@ -29,7 +29,14 @@ function yaml2json(buffer, options) {
   monster.wisdom = ymlMonster.abilities.wis;
   monster.charisma = ymlMonster.abilities.cha;
   monster.challenge = ymlMonster.cr;
-  monster.traits = ymlMonster.traits;
+  monster.traits = [];
+  for (const prop in ymlMonster.traits) {
+    const trait = ymlMonster.traits.${prop};
+    monster.traits.push({
+      name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" );
+      description: trait.description;
+    })
+  }
 
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
 }
