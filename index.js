@@ -103,10 +103,43 @@ function yaml2json(buffer, options) {
       var save = ymlMonster.saves[prop]
       var temp = "";
       temp += prop.charAt(0).toUpperCase() + prop.slice(1);
-      temp += save >= 0 ? " +" : " -";
+      temp += save >= 0 ? " +" + save : " -" + save;
       savesArray.push(temp);
     }
     monster.savingThrows = savesArray.join(",");
+  }
+
+  if (ymlMonster.skills) {
+    var skillsArray = [];
+    for (var prop in ymlMonster.skills) {
+      const skill = ymlMonster.skills[prop];
+      var temp = prop;
+      temp += skill >= 0 ? " +" + skill : " -" + skill;
+      skillsArray.push(temp);
+    }
+    monster.skills = skillsArray.join(",");
+  }
+
+  if (ymlMonster.condition) {
+    monster.conditionImmunities = ymlMonster.condition.immunities;
+  }
+
+  if (ymlMonster.damage) {
+    if (ymlMonster.damage.resistances) {
+      monster.damageResistances = ymlMonster.damage.resistances;
+    } else if (ymlMonster.damage.immunities) {
+      monster.damageImmunities = ymlMonster.damage.immunities;
+    } else if (ymlMonster.damage.vulnerabilities) {
+      monster.damageVulnerabilities = ymlMonster.damage.vulnerabilities;
+    }
+  }
+
+  if (ymlMonster.senses) {
+    monster.senses = ymlMonster.senses;
+  }
+
+  if (ymlMonster.languages) {
+    monster.languages = ymlMonster.languages;
   }
 
   return new Buffer(JSON.stringify(monster, options.replacer, options.space));
