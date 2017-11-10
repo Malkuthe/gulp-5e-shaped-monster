@@ -68,7 +68,7 @@ function yaml2json(buffer, options) {
       text += attack.range ? "range " + attack.range : "";
       text += ", ";
       text += attack.target + ". ";
-      text += "Hit: " + attack.damage + " " + attack.onhit; 
+      text += "Hit: " + attack.damage + ( attack.onhit ? " " + attack.onhit : "" ); 
       monster.actions.push({
         name: attack.name + ( attack.uses ? " (" + attack.uses + ")" : ""),
         text: text
