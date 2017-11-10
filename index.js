@@ -106,7 +106,7 @@ function yaml2json(buffer, options) {
       temp += save >= 0 ? " +" + save : " -" + save;
       savesArray.push(temp);
     }
-    monster.savingThrows = savesArray.join(",");
+    monster.savingThrows = savesArray.join(", ");
   }
 
   if (ymlMonster.skills) {
@@ -117,7 +117,7 @@ function yaml2json(buffer, options) {
       temp += skill >= 0 ? " +" + skill : " -" + skill;
       skillsArray.push(temp);
     }
-    monster.skills = skillsArray.join(",");
+    monster.skills = skillsArray.join(", ");
   }
 
   if (ymlMonster.condition) {
