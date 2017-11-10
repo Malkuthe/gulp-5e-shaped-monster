@@ -1,0 +1,22 @@
+{
+  "name": "gulp-5e-shaped-monster",
+  "version": "1.0.0",
+  "description": "Compiles yaml files into a single JSON database compatible with the 5e shaped companion script on Roll20.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malkuthe/gulp-5e-shaped-monster.git"
+  },
+  "author": "Malkuthe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malkuthe/gulp-5e-shaped-monster/issues"
+  },
+  "homepage": "https://github.com/malkuthe/gulp-5e-shaped-monster#readme",
+  "devDependencies": {
+    "event-stream": "^3.3.4"
+  }
+}
