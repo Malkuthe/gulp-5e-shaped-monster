@@ -17,9 +17,9 @@ function yaml2json(buffer, options) {
   monster.name = ymlMonster.name;
   monster.type = ymlMonster.type;
   monster.size = ymlMonster.size;
-  monster.type = ymlMonster.type + ( ymlMonster.subtype ? "(" + ymlMonster.subtype + ")" );
+  monster.type = ymlMonster.type + ( ymlMonster.subtype ? "(" + ymlMonster.subtype + ")" : "" );
   monster.alignment = ymlMonster.alignment;
-  monster.AC = ymlMonster.ac + ( ymlMonster.armor ? "(" + ymlMonster.armor + ")" );
+  monster.AC = ymlMonster.ac + ( ymlMonster.armor ? "(" + ymlMonster.armor + ")" : "" );
   monster.HP = ymlMonster.hp;
   monster.speed = ymlMonster.speed;
   monster.strength = ymlMonster.abilities.str;
