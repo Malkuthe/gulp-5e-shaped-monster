@@ -34,10 +34,11 @@ function yaml2json(buffer, options) {
     monster.traits = [];
     for (const prop in ymlMonster.traits) {
       const trait = ymlMonster.traits[prop];
-      monster.traits.push({
-        name: trait.name + ( trait.uses ? " (" + trait.uses + ")" : "" ),
-        text: removeMD(trait.description)
-      })
+      var traitObj = {}
+      traitObj.name = trait.name;
+      traitObj.text = removeMD(trait.description);
+      if (trait.uses) traitObj.recharge = trait.uses; 
+      monster.traits.push(traitObj);
     }
   }
 
@@ -52,37 +53,44 @@ function yaml2json(buffer, options) {
 
     for (const prop in ymlMonster.actions) {
       const action = ymlMonster.actions[prop];
-      monster.actions.push({
-        name: action.name + ( action.uses ? " (" + action.uses + ")" : ""),
-        text: removeMD(action.description)
-      })
+      var actionObj = {}
+      actionObj.name = action.name;
+      actionObj.text = removeMD(action.description);
+      if (action.uses) actionObj.recharge = action.uses;
+      monster.actions.push(actionObj);
     }
 
     for (const prop in ymlMonster.attacks) {
       const attack = ymlMonster.attacks[prop];
-      var text = attack.type + ": ";
-      text += ( attack.tohit >= 0 ? "+" : "-" ) + attack.tohit + " to hit, ";
-      text += attack.reach ? "reach " + attack.reach : "";
-      text += attack.reach && attack.range ? " or " : "";
-      text += attack.range ? "range " + attack.range : "";
-      text += ", ";
-      text += attack.target + ". ";
-      text += "Hit: " + attack.damage + ( attack.onhit ? " " + attack.onhit : "" ); 
-      monster.actions.push({
-        name: attack.name + ( attack.uses ? " (" + attack.uses + ")" : ""),
-        text: text
-      })
+      var attackObj = {};
+      attackObj.name = attack.name;
+      attackObj.text = attack.type + ": ";
+      attackObj.text += ( attack.tohit >= 0 ? "+" : "-" ) + attack.tohit + " to hit, ";
+      attackObj.text += attack.reach ? "reach " + attack.reach : "";
+      attackObj.text += attack.reach && attack.range ? " or " : "";
+      attackObj.text += attack.range ? "range " + attack.range : "";
+      attackObj.text += ", ";
+      attackObj.text += attack.target + ". ";
+      attackObj.text += "Hit: " + attack.damage + ( attack.onhit ? " " + attack.onhit : "" );
+      if (attack.uses) attackObj.recharge = attack.uses;
+      monster.actions.push(attackObj);
     }
   }
 
   if (ymlMonster.legendaryActions) {
-    monster.legendaryActions = [];
+    monster.legendaryPoints = ymlMonster.legendaryPoints ? ymlMonster.legendaryPoints : 3;
+
+    monster.lActions = [];
     for (const prop in ymlMonster.legendaryActions) {
-      const legendaryAction = ymlMonster.legendaryActions[prop];
-      monster.legendaryActions.push({
-        name: legendaryAction.name + ( legendaryAction.uses ? " (" + legendaryAction.uses + ")" : ""),
-        text: removeMD(legendaryAction.description)
-      })
+      if (prop == "description") {
+        continue;
+      }
+      const lAction = ymlMonster.legendaryActions[prop];
+      var lActionObj = {};
+      lActionObj.name = lAction.name;
+      lActionObj.text = removeMD(lAction.description);
+      lActionObj.cost = lAction.cost ? 1 : lAction.cost;
+      monster.lActions.push(lActionObj);
     }
   }
 
@@ -90,10 +98,11 @@ function yaml2json(buffer, options) {
     monster.reactions = [];
     for (const prop in ymlMonster.reactions) {
       const reaction = ymlMonster.reactions[prop];
-      monster.reactions.push({
-        name: reaction.name + ( reaction.uses ? " (" + reaction.uses + ")" : ""),
-        text: removeMD(reaction.description)
-      })
+      var reactionObj = {};
+      reactionObj.name = reaction.name;
+      reactionObj.text = removeMD(reaction.description);
+      if (reaction.uses) reactionObj.recharge = reaction.uses;
+      monster.reactions.push(reactionObj);
     }
   }
 
