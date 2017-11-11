@@ -13,7 +13,7 @@ var PLUGIN_NAME   = 'gulp-5e-monster-shaped';
 function yaml2json(buffer, options) {
   var contents = buffer.toString('utf8');
   var ymlOptions = {schema: options.schema, filename: options.filename};
-  if (contents != null) {
+  if (contents != "") {
     var ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
   }
   var monster = {};
@@ -148,9 +148,13 @@ function yaml2json(buffer, options) {
     if (ymlMonster.damage) {
       if (ymlMonster.damage.resistances) {
         monster.damageResistances = ymlMonster.damage.resistances;
-      } else if (ymlMonster.damage.immunities) {
+      }
+
+      if (ymlMonster.damage.immunities) {
         monster.damageImmunities = ymlMonster.damage.immunities;
-      } else if (ymlMonster.damage.vulnerabilities) {
+      } 
+
+      if (ymlMonster.damage.vulnerabilities) {
         monster.damageVulnerabilities = ymlMonster.damage.vulnerabilities;
       }
     }
