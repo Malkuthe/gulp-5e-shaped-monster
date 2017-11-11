@@ -13,7 +13,7 @@ var PLUGIN_NAME   = 'gulp-5e-monster-shaped';
 function yaml2json(buffer, options) {
   var contents = buffer.toString('utf8');
   var ymlOptions = {schema: options.schema, filename: options.filename};
-  var ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
+  var ymlMonster = options.safe && contents != null ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
   var monster = {};
   monster.name = ymlMonster.name;
   monster.size = firstCap(ymlMonster.size);
@@ -37,7 +37,7 @@ function yaml2json(buffer, options) {
       var traitObj = {}
       traitObj.name = trait.name;
       traitObj.text = removeMD(trait.description);
-      if (trait.uses) traitObj.recharge = trait.uses; 
+      if (trait.uses) traitObj.recharge = trait.uses;
       monster.traits.push(traitObj);
     }
   }
