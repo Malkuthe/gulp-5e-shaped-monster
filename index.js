@@ -213,11 +213,6 @@ module.exports = function(options) {
     }
 
     if (file.isBuffer()) {
-      if (file.contents.length === 0) {
-        this.emit('error', new PluginError(PLUGIN_NAME, 'File ' + file.path +
-            ' is empty. YAML loader cannot load empty content'));
-        return callback();
-      }
       try {
         file.contents = yaml2json(file.contents, options);
         file.path = gutil.replaceExtension(file.path, '.json');
