@@ -13,8 +13,10 @@ var PLUGIN_NAME   = 'gulp-5e-monster-shaped';
 function yaml2json(buffer, options) {
   var contents = buffer.toString('utf8');
   var ymlOptions = {schema: options.schema, filename: options.filename};
-  if (contents != null)
-    var ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
+  var ymlMonster = null;
+  if (contents != null) {
+    ymlMonster = options.safe ? yaml.safeLoad(contents, ymlOptions) : yaml.load(contents, ymlOptions);
+  }
   var monster = {};
 
   if (ymlMonster != null) {
