@@ -101,7 +101,7 @@ function yaml2json(buffer, options) {
         var lActionObj = {};
         lActionObj.name = lAction.name;
         lActionObj.text = removeMD(lAction.description);
-        lActionObj.cost = lAction.cost ? 1 : lAction.cost;
+        lActionObj.cost = lAction.cost ? lAction.cost : 1;
         monster.lActions.push(lActionObj);
       }
     }
