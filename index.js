@@ -92,7 +92,7 @@ function yaml2json(buffer, options) {
     if (ymlMonster.legendaryActions) {
       monster.legendaryPoints = ymlMonster.legendaryPoints ? ymlMonster.legendaryPoints : 3;
 
-      monster.lActions = [];
+      monster.legendaryActions = [];
       for (const prop in ymlMonster.legendaryActions) {
         if (prop == "description") {
           continue;
@@ -102,7 +102,7 @@ function yaml2json(buffer, options) {
         lActionObj.name = lAction.name;
         lActionObj.text = removeMD(lAction.description);
         lActionObj.cost = lAction.cost ? lAction.cost : 1;
-        monster.lActions.push(lActionObj);
+        monster.legendaryActions.push(lActionObj);
       }
     }
 
