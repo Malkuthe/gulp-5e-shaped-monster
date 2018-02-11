@@ -19,7 +19,9 @@ function yaml2json(buffer, options) {
   var monster = {};
 
   if (ymlMonster != null) {
-    monster.name = ymlMonster.name.replace(/'/g,"&#39;");
+    var name = ymlMonster.name;
+    name = name.replace(/'/g,"\\'");
+    monster.name = name;
     monster.size = firstCap(ymlMonster.size);
     monster.type = firstCap(ymlMonster.type) + ( ymlMonster.subtype ? " (" + ymlMonster.subtype + ")" : "" );
     monster.alignment = ymlMonster.alignment;
