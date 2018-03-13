@@ -6,6 +6,7 @@ var yaml          = require('js-yaml');
 var xtend         = require('xtend');
 var BufferStreams = require('bufferstreams');
 var removeMD      = require('remove-markdown');
+var he            = require('he');
 var PluginError   = gutil.PluginError;
 var PLUGIN_NAME   = 'gulp-5e-monster-shaped';
 
@@ -19,7 +20,7 @@ function yaml2json(buffer, options) {
   var monster = {};
 
   if (ymlMonster != null) {
-    monster.name = ymlMonster.name.replace(/'/g,"•◘").replace(/•/g,"\\\\").replace(/◘/g,"'");
+    monster.name = he.decode(ymlMonster.name.replace(/'/g,"&#92;&apos;"));
     monster.size = firstCap(ymlMonster.size);
     monster.type = firstCap(ymlMonster.type) + ( ymlMonster.subtype ? " (" + ymlMonster.subtype + ")" : "" );
     monster.alignment = ymlMonster.alignment;
