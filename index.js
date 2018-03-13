@@ -20,7 +20,8 @@ function yaml2json(buffer, options) {
   var monster = {};
 
   if (ymlMonster != null) {
-    monster.name = he.decode(ymlMonster.name.replace(/'/g,"&#92;&apos;"));
+    // monster.name = he.decode(ymlMonster.name.replace(/'/g,"&apos;"));
+    monster.name = ymlMonster.name;
     monster.size = firstCap(ymlMonster.size);
     monster.type = firstCap(ymlMonster.type) + ( ymlMonster.subtype ? " (" + ymlMonster.subtype + ")" : "" );
     monster.alignment = ymlMonster.alignment;
