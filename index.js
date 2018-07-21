@@ -42,11 +42,11 @@ function yaml2json(buffer, options) {
 
     monster.challenge = 0;
 
-    if (ymlMonster.cr.toString() == "1/8") {
+    if (ymlMonster.cr == "1/8") {
       monster.challenge = 0.125;
-    } else if (ymlMonster.cr.toString() == "1/4") {
+    } else if (ymlMonster.cr == "1/4") {
       monster.challenge = 0.25;
-    } else if (ymlMonster.cr.toString() == "1/2") {
+    } else if (ymlMonster.cr == "1/2") {
       monster.challenge = 0.50;
     } else {
       monster.challenge = ymlMonster.cr;
