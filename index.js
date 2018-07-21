@@ -45,7 +45,7 @@ function yaml2json(buffer, options) {
         monster.challenge = 0.125;
       } else if (ymlMonster.cr == "1/4") {
         monster.challenge = 0.25;
-      } else if (ymlMonster.cr = "1/2") {
+      } else if (ymlMonster.cr == "1/2") {
         monster.challenge = 0.50;
       } else {
         monster.challenge = ymlMonster.cr;
