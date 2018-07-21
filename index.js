@@ -40,6 +40,8 @@ function yaml2json(buffer, options) {
 
     // monster.challenge = ymlMonster.cr > 0 ? ymlMonster.cr.toString() : "0";
 
+    monster.challenge = 0;
+
     if (ymlMonster.cr.toString() == "1/8") {
       monster.challenge = 0.125;
     } else if (ymlMonster.cr.toString() == "1/4") {
