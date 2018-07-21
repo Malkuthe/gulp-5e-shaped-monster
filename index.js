@@ -38,7 +38,21 @@ function yaml2json(buffer, options) {
       monster.charisma = ymlMonster.abilities.cha;
     }
 
-    monster.challenge = ymlMonster.cr > 0 ? ymlMonster.cr.toString() : "0";
+    // monster.challenge = ymlMonster.cr > 0 ? ymlMonster.cr.toString() : "0";
+
+    if (ymlMonster.cr) {
+      if (ymlMonster.cr == "1/8") {
+        monster.challenge = 0.125;
+      } else if (ymlMonster.cr == "1/4") {
+        monster.challenge = 0.25;
+      } else if (ymlMonster.cr = "1/2") {
+        monster.challenge = 0.50;
+      } else {
+        monster.challenge = ymlMonster.cr;
+      }
+    } else {
+      monster.challenge = 0;
+    }
 
     if (ymlMonster.traits) {
       monster.traits = [];
